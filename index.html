@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Your Map Title</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+<div id='map'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmtlbCIsImEiOiJjbHJlc3d3ZjMxZmVrMmtxaTAwNjlsemRjIn0.jpwjMG-RR6LCMkkuMZF6sQ'; // Replace with your Mapbox access token
+
+var map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/nkel/clrg85nx300ij01p4amxg58oc', // style URL
+    // mapbox://styles/nkel/clrg85nx300ij01p4amxg58oc
+    center: [18.860498, 59.829817], // starting position [lng, lat]
+    zoom: 5 // starting zoom
+});
+
+// An array of objects, each object is a marker
+var markers = [
+    { lng: 18.0635302, lat: 59.3332868, title: "Pantbanken City", description: "Mäster Samuelsgatan 44 <br /> 111 57 Stockholm <br /> Tel: 08-440 07 20 <br /> E-post: city@pantbanken.se" },
+    { lng: 18.090162, lat: 59.242556, title: "Pantbanken Farsta", description: "Description for Marker 2" },
+    { lng: 18.027447, lat: 59.331621, title: "Pantbanken Skapa", description: "Description for Marker 2" },
+    // Add more markers as needed
+];
+
+// Adding markers to the map
+markers.forEach(function(marker) {
+    var el = document.createElement('div');
+    el.className = 'marker';
+
+    var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+        '<h3>' + marker.title + '</h3><p>' + marker.description + '</p>'
+    );
+
+    new mapboxgl.Marker(el)
+        .setLngLat([marker.lng, marker.lat])
+        .setPopup(popup)
+        .addTo(map);
+});
+
+</script>
+<style>
+    .marker {
+    background-image: url('https://scontent-arn2-1.xx.fbcdn.net/v/t39.30808-1/341473613_187167870822224_2682547610880715808_n.png?stp=dst-png_p480x480&_nc_cat=102&ccb=1-7&_nc_sid=596444&_nc_ohc=t5gzTzoF2ZMAX-pJeCo&_nc_oc=AQny0TzlcnbUPHhJju52UZ1E71PUZ1vJOqBJ8AgQyx-EsPQtMJOgpq3Gaa50BcvUPmA&_nc_ht=scontent-arn2-1.xx&oh=00_AfBX8dBXPCNHJDaVrm-fIsWkM9g1tRxJSFJtEinTWLAfMA&oe=65AAEF30');
+    background-size: cover;
+    width: 50px;   /* Size of the marker */
+    height: 50px;  /* Size of the marker */
+    border-radius: 50%; /* Optional for circular markers */
+    cursor: pointer;
+}
+</style>
+</body>
+</html>
